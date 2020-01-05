@@ -5,8 +5,11 @@
  */
 package com.mycompany.thriftexample;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import org.apache.thrift.TMultiplexedProcessor;
 import org.apache.thrift.server.TThreadPoolServer;
+import org.apache.thrift.transport.TSSLTransportFactory;
 import org.apache.thrift.transport.TServerSocket;
 import org.apache.thrift.transport.TTransportException;
 
@@ -20,18 +23,25 @@ public class Server {
     private static AdvertiserHandler advertiserHandler;
     private static TMultiplexedProcessor processor;
     
-    public static void main(String[] args){
-        //http server
+    public static void main(String[] args) throws UnknownHostException{
         try{
             port = 8090;
             vendorHandler = new VendorHandler();
             advertiserHandler = new AdvertiserHandler();
             processor = new TMultiplexedProcessor();
             
-            processor.registerProcessor("Vendor", new Vendor.Processor(vendorHandler));
-            processor.registerProcessor("Advertiser", new Advertiser.Processor(advertiserHandler));
+            TSSLTransportFactory.TSSLTransportParameters params =
+                    new TSSLTransportFactory.TSSLTransportParameters();
+            params.setKeyStore("src/main/resources/keystore.jks", "password");
             
-            TServerSocket socket = new TServerSocket(port);
+            TServerSocket socket = TSSLTransportFactory.getServerSocket(
+                    port, 30000, InetAddress.getByName("localhost"), params);
+            
+            processor.registerProcessor(
+                    "Vendor", new Vendor.Processor(vendorHandler));
+            processor.registerProcessor(
+                    "Advertiser", new Advertiser.Processor(advertiserHandler));
+            
             TThreadPoolServer server = 
                 new TThreadPoolServer(
                        new TThreadPoolServer.Args(socket).processor(processor));
@@ -40,7 +50,6 @@ public class Server {
         }
         catch(TTransportException e){
         }
-        // thrift server
     }
     
 }

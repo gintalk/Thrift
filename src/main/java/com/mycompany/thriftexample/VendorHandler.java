@@ -39,8 +39,6 @@ public class VendorHandler implements Vendor.Iface{
     @Override
     public void addItem(String itemName, int itemPrice){
         Item newItem = new Item(count);
-//        newItem.setItemName(itemName);
-//        newItem.setItemPrice(itemPrice);
         newItem.setFieldValue(newItem.fieldForId(2), itemName);
         newItem.setFieldValue(newItem.fieldForId(3), itemPrice);
         menu.put(count++, newItem);
