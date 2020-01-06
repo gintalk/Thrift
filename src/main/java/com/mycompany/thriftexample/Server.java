@@ -11,6 +11,7 @@ import org.apache.thrift.TMultiplexedProcessor;
 import org.apache.thrift.server.TThreadPoolServer;
 import org.apache.thrift.transport.TSSLTransportFactory;
 import org.apache.thrift.transport.TServerSocket;
+import org.apache.thrift.transport.TServerTransport;
 import org.apache.thrift.transport.TTransportException;
 
 /**
@@ -30,12 +31,14 @@ public class Server {
             advertiserHandler = new AdvertiserHandler();
             processor = new TMultiplexedProcessor();
             
-            TSSLTransportFactory.TSSLTransportParameters params =
-                    new TSSLTransportFactory.TSSLTransportParameters();
-            params.setKeyStore("src/main/resources/keystore.jks", "password");
+            TServerTransport socket = new TServerSocket(port);
             
-            TServerSocket socket = TSSLTransportFactory.getServerSocket(
-                    port, 30000, InetAddress.getByName("localhost"), params);
+//            TSSLTransportFactory.TSSLTransportParameters params =
+//                    new TSSLTransportFactory.TSSLTransportParameters();
+//            params.setKeyStore("src/main/resources/keystore.jks", "password");
+//            
+//            TServerSocket socket = TSSLTransportFactory.getServerSocket(
+//                    port, 30000, InetAddress.getByName("localhost"), params);
             
             processor.registerProcessor(
                     "Vendor", new Vendor.Processor(vendorHandler));
@@ -49,6 +52,7 @@ public class Server {
             server.serve();
         }
         catch(TTransportException e){
+            e.printStackTrace();
         }
     }
     
