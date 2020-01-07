@@ -6,19 +6,24 @@
 package com.mycompany.thriftexample;
 
 import java.util.HashMap;
-
 /**
  *
  * @author cpu11290-local
  */
 public class VendorHandler implements Vendor.Iface{
-    private static int count = 0;
-    private static Item nullItem = new Item(-1);
-    private HashMap<Integer, Item> menu = new HashMap<>();
+    private static int count;
+    private static Item nullItem;
+    private HashMap<Integer, Item> menu;
+    
+    public VendorHandler(){
+        count = 0;
+        nullItem = new Item(-1);
+        menu = new HashMap<>();
+    }
     
     @Override
     public String greet(String name){
-        return "Welcome " + name;
+        return "Welcome, " + name;
     }
     
     @Override

@@ -1,7 +1,7 @@
-/home/cpu11290-local/NetBeansProjects/ThriftExample/src/main/java/com/mycompany/thriftexample/FoodServer.java
-/home/cpu11290-local/NetBeansProjects/ThriftExample/src/main/java/com/mycompany/thriftexample/Vendor.java
-/home/cpu11290-local/NetBeansProjects/ThriftExample/src/main/java/com/mycompany/thriftexample/DrinkServer.java
-/home/cpu11290-local/NetBeansProjects/ThriftExample/src/main/java/com/mycompany/thriftexample/AnotherClient.java
-/home/cpu11290-local/NetBeansProjects/ThriftExample/src/main/java/com/mycompany/thriftexample/Client.java
-/home/cpu11290-local/NetBeansProjects/ThriftExample/src/main/java/com/mycompany/thriftexample/VendorHandler.java
-/home/cpu11290-local/NetBeansProjects/ThriftExample/src/main/java/com/mycompany/thriftexample/Item.java
+/home/cpu11290-local/NetBeansProjects/Thrift/src/main/java/com/mycompany/thriftexample/Server.java
+/home/cpu11290-local/NetBeansProjects/Thrift/src/main/java/com/mycompany/thriftexample/Item.java
+/home/cpu11290-local/NetBeansProjects/Thrift/src/main/java/com/mycompany/thriftexample/Advertiser.java
+/home/cpu11290-local/NetBeansProjects/Thrift/src/main/java/com/mycompany/thriftexample/AdvertiserHandler.java
+/home/cpu11290-local/NetBeansProjects/Thrift/src/main/java/com/mycompany/thriftexample/VendorHandler.java
+/home/cpu11290-local/NetBeansProjects/Thrift/src/main/java/com/mycompany/thriftexample/Client.java
+/home/cpu11290-local/NetBeansProjects/Thrift/src/main/java/com/mycompany/thriftexample/Vendor.java

@@ -8,6 +8,7 @@ package com.mycompany.thriftexample;
 import java.util.Map;
 import java.util.Scanner;
 import org.apache.thrift.protocol.TBinaryProtocol;
+import org.apache.thrift.protocol.TJSONProtocol;
 import org.apache.thrift.protocol.TMultiplexedProtocol;
 import org.apache.thrift.transport.TSSLTransportFactory;
 import org.apache.thrift.transport.TSocket;
@@ -15,20 +16,20 @@ import org.apache.thrift.transport.TSocket;
  *
  * @author cpu11290-local
  */
-public class Client {
+public class JSONClient {
     public static void main(String[] args){
-        TSSLTransportFactory.TSSLTransportParameters params =
-                new TSSLTransportFactory.TSSLTransportParameters();
-        params.setTrustStore("src/main/resources/truststore.jks", "password");
+//        TSSLTransportFactory.TSSLTransportParameters params =
+//                new TSSLTransportFactory.TSSLTransportParameters();
+//        params.setTrustStore("src/main/resources/truststore.jks", "password");
             
-        try (/*TSocket socket = new TSocket("localhost", 8090)*/
-                TSocket socket = TSSLTransportFactory.getClientSocket(
-                "localhost", 8090, 30000, params)) {
-            TBinaryProtocol proto = new TBinaryProtocol(socket);
+        try (TSocket socket = new TSocket("localhost", 8090)
+                /*TSocket socket = TSSLTransportFactory.getClientSocket(
+                "localhost", 8090, 30000, params)*/) {
+            TJSONProtocol proto = new TJSONProtocol(socket);
             
             TMultiplexedProtocol vendorProto = new TMultiplexedProtocol(proto, "Vendor");
             Vendor.Client vendorClient = new Vendor.Client(vendorProto);
-                
+//                
             TMultiplexedProtocol advertiserProto = new TMultiplexedProtocol(proto, "Advertiser");
             Advertiser.Client advertiserClient = new Advertiser.Client(advertiserProto);
             

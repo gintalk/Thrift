@@ -8,6 +8,8 @@ package com.mycompany.thriftexample;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import org.apache.thrift.TMultiplexedProcessor;
+import org.apache.thrift.TProcessor;
+import org.apache.thrift.protocol.TJSONProtocol;
 import org.apache.thrift.server.TThreadPoolServer;
 import org.apache.thrift.transport.TSSLTransportFactory;
 import org.apache.thrift.transport.TServerSocket;
@@ -17,7 +19,7 @@ import org.apache.thrift.transport.TTransportException;
  *
  * @author cpu11290-local
  */
-public class Server {
+public class JSONServer {
     private static int port;
     private static VendorHandler vendorHandler;
     private static AdvertiserHandler advertiserHandler;
@@ -30,14 +32,14 @@ public class Server {
             advertiserHandler = new AdvertiserHandler();
             processor = new TMultiplexedProcessor();
             
-//            TServerTransport socket = new TServerSocket(port);
+            TServerTransport socket = new TServerSocket(port);
             
-            TSSLTransportFactory.TSSLTransportParameters params =
-                    new TSSLTransportFactory.TSSLTransportParameters();
-            params.setKeyStore("src/main/resources/keystore.jks", "password");
-            
-            TServerSocket socket = TSSLTransportFactory.getServerSocket(
-                    port, 30000, InetAddress.getByName("localhost"), params);
+//            TSSLTransportFactory.TSSLTransportParameters params =
+//                    new TSSLTransportFactory.TSSLTransportParameters();
+//            params.setKeyStore("src/main/resources/keystore.jks", "password");
+//            
+//            TServerSocket socket = TSSLTransportFactory.getServerSocket(
+//                    port, 30000, InetAddress.getByName("localhost"), params);
             
             processor.registerProcessor(
                     "Vendor", new Vendor.Processor(vendorHandler));
@@ -46,7 +48,8 @@ public class Server {
             
             TThreadPoolServer server = 
                 new TThreadPoolServer(
-                       new TThreadPoolServer.Args(socket).processor(processor));
+                       new TThreadPoolServer.Args(socket).processor(processor)
+                            .protocolFactory(new TJSONProtocol.Factory()));
             
             server.serve();
         }

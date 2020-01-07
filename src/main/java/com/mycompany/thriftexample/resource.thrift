@@ -7,7 +7,7 @@ typedef map<int, Item> HashMap;
 
 struct Item{
     1: required int itemId;
-    //2: optional String itemmName;
+    2: optional String itemmName;
     3: optional int itemPrice;
 }
 
