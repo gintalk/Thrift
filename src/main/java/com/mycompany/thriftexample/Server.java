@@ -30,14 +30,14 @@ public class Server {
             advertiserHandler = new AdvertiserHandler();
             processor = new TMultiplexedProcessor();
             
-//            TServerTransport socket = new TServerSocket(port);
+            TServerTransport socket = new TServerSocket(port);
             
-            TSSLTransportFactory.TSSLTransportParameters params =
-                    new TSSLTransportFactory.TSSLTransportParameters();
-            params.setKeyStore("src/main/resources/keystore.jks", "password");
-            
-            TServerSocket socket = TSSLTransportFactory.getServerSocket(
-                    port, 30000, InetAddress.getByName("localhost"), params);
+//            TSSLTransportFactory.TSSLTransportParameters params =
+//                    new TSSLTransportFactory.TSSLTransportParameters();
+//            params.setKeyStore("src/main/resources/keystore.jks", "password");
+//            
+//            TServerSocket socket = TSSLTransportFactory.getServerSocket(
+//                    port, 30000, InetAddress.getByName("localhost"), params);
             
             processor.registerProcessor(
                     "Vendor", new Vendor.Processor(vendorHandler));
